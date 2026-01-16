@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Tea.css";
+import "./Seeds.css";
 
 const API = "http://localhost:5000/api/buy";
 
@@ -34,7 +34,7 @@ export default function Tea() {
         setLoading(true);
         setError(null);
         
-        const res = await axios.get(`${API}/category/tea`, {
+        const res = await axios.get(`${API}/category/seeds`, {
           params: {
             priceMax: maxPrice
           }
