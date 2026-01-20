@@ -1,0 +1,206 @@
+.auth-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%);
+}
+
+.auth-panel {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* LOGIN STATE: Image LEFT (0%), Form RIGHT (0%) */
+.login .auth-image {
+  transform: translateX(0);
+  background: 
+    linear-gradient(rgba(47,122,62,0.85), rgba(76,175,80,0.7)),
+    /* Agriculture crops background for LOGIN */
+    url('/images/BG1.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.login .auth-form {
+  transform: translateX(0);
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(30px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* SIGNUP STATE: Image RIGHT (100%), Form LEFT (-100%) */
+.signup .auth-image {
+  transform: translateX(100%);
+  background: 
+    linear-gradient(rgba(190,60,27,0.85), rgba(243,54,21,0.7)),
+    /* Agriculture revolution background for SIGNUP */
+    url('/images/BG2.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.signup .auth-form {
+  transform: translateX(-100%);
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(30px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* IMAGE EFFECTS */
+.auth-image {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.auth-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.3) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* FORM CONTENT */
+.form-content {
+  max-width: 400px;
+  width: 100%;
+  padding: 3rem;
+  text-align: center;
+}
+
+.form-content h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #2f7a3e, #4caf50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.form-subtitle {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+}
+
+.google-btn {
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #4285f4, #34a853);
+  color: #fff;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(66,133,244,0.4);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.google-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(66,133,244,0.5);
+}
+
+.google-btn:active {
+  transform: translateY(-1px);
+}
+
+.switch-text {
+  margin-top: 2rem;
+  color: #666;
+  font-size: 1rem;
+}
+
+.switch-link {
+  color: #2f7a3e;
+  cursor: pointer;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.switch-link:hover {
+  color: #4caf50;
+  text-shadow: 0 0 8px rgba(47,122,62,0.3);
+}
+
+/* IMAGE CONTENT */
+.image-content {
+  max-width: 500px;
+  padding: 3rem;
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.image-content h2 {
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.image-content p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .auth-container {
+    flex-direction: column;
+  }
+  
+  .auth-panel {
+    min-height: 50vh;
+    transform: none !important;
+  }
+  
+  .login .auth-form,
+  .signup .auth-form {
+    order: 2;
+    transform: none !important;
+    box-shadow: 0 -20px 60px rgba(0,0,0,0.1);
+  }
+  
+  .login .auth-image,
+  .signup .auth-image {
+    order: 1;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-content,
+  .image-content {
+    padding: 2rem 1.5rem;
+  }
+}

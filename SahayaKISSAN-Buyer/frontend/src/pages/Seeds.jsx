@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Seeds.css";
+import api from "../api/axios";
+import "./Tea.css";
 
 const API = "http://localhost:5000/api/buy";
 
@@ -34,7 +35,7 @@ export default function Tea() {
         setLoading(true);
         setError(null);
         
-        const res = await axios.get(`${API}/category/seeds`, {
+        const res = await api.get(`${API}/category/seeds`, {
           params: {
             priceMax: maxPrice
           }
@@ -220,8 +221,10 @@ const handleBuyNow = (item) => {
                   alt={item.cropName || item.name} 
                 />
                 <h4>{item.cropName || item.name}</h4>
-                <p>₹{item.price}</p>
+
+                <p>₹{item.price}/kg</p>
                 <p className="location">{item.city}, {item.state}</p>
+
 
                 <div className="btn-group">
                   <button 

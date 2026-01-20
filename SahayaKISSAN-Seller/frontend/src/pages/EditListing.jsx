@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import "./SellForm.css";
+import api from "../api/axios"
 
 const API = "http://localhost:5000/api/listings/edit";
 
@@ -38,7 +39,7 @@ export default function EditListing() {
     const fetchListing = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(`${API}/${id}`);
+        const res = await api.get(`${API}/${id}`);
         const data = res.data;
 
         setForm({
@@ -125,7 +126,7 @@ export default function EditListing() {
         formData.append('deleteImages', imageUrl);
       });
 
-      const res = await axios.patch(
+      const res = await api.patch(
         `${API}/${id}`,
         formData
       );

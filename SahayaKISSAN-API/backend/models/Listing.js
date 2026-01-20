@@ -3,7 +3,12 @@ import mongoose from "mongoose";
 const listingSchema = new mongoose.Schema(
   {
     cropName: { type: String, required: true },
-
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true
+    },
     category: {
       type: String,
       enum: ["seeds", "tea"],   

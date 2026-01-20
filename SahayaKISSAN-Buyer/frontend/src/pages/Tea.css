@@ -23,7 +23,7 @@ body {
 /* HERO BANNER */
 .banner {
   height: 300px;
-  background-image: url("https://cofarmtomarket.com/wp-content/uploads/2021/06/vegetable-box.jpg");
+  background-image: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -48,13 +48,24 @@ body {
   font-size: 56px;
   font-weight: 700;
   letter-spacing: 2px;
-  background: linear-gradient(90deg, #ff9800, #4caf50, #66bb6a, #8e24aa, #ff9800);
+  background: linear-gradient(90deg, #e7e5e2, #ffffff, #fcfffc, #ffffff, #ffffff);
   background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: veggieGlow 3s ease-in-out infinite, veggieGradient 6s linear infinite;
 }
-
+.banner-title>p{
+  position: relative;
+  z-index: 2;
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #e7e5e2, #ffffff, #fcfffc, #ffffff, #ffffff);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: veggieGlow 3s ease-in-out infinite, veggieGradient 6s linear infinite;
+}
 @keyframes bannerZoom {
   0% { transform: scale(1); }
   50% { transform: scale(1.12); }
@@ -63,7 +74,7 @@ body {
 
 @keyframes veggieGlow {
   from { text-shadow: 0 0 8px rgba(76,175,80,0.5); }
-  to { text-shadow: 0 0 25px rgba(255,152,0,0.9); }
+  to { text-shadow: 0 0 25px rgba(255, 244, 228, 0.9); }
 }
 
 @keyframes veggieGradient {

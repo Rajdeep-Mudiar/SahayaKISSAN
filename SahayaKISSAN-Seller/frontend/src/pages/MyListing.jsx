@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./MyListing.css";
+import api from "../api/axios";
 
 const API = "http://localhost:5000/api/listings";
 
@@ -16,7 +17,7 @@ export default function MyListing() {
   const fetchListings = async (status) => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API}/my?status=${status}`);
+      const res = await api.get(`${API}/my?status=${status}`);
       setListings(res.data);
     } catch (err) {
       console.error("Failed to fetch listings", err);
@@ -31,7 +32,7 @@ export default function MyListing() {
 
   const changeStatus = async (id, newStatus) => {
     try {
-      await axios.patch(`${API}/${id}/status`, { status: newStatus });
+      await api.patch(`${API}/${id}/status`, { status: newStatus });
       fetchListings(activeTab);
     } catch (err) {
       console.error("Failed to update status", err);
@@ -45,7 +46,7 @@ export default function MyListing() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`${API}/${id}`);
+      await api.delete(`${API}/${id}`);
       fetchListings(activeTab);
     } catch (err) {
       console.error("Failed to delete listing", err);

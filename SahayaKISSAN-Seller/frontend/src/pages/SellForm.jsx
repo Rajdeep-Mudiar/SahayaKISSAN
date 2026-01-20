@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import "./SellForm.css";
+import api from "../api/axios";
+
 
 const API = "http://localhost:5000/api/listings"; 
 
@@ -76,7 +78,7 @@ export default function SellForm() {
         formData.append('images', image);
       });
 
-      const res = await axios.post(
+      const res = await api.post(
         `${API}`, // POST /api/listings (CREATE)
         formData, // ✅ FORM DATA AS BODY
         // {
@@ -136,9 +138,6 @@ export default function SellForm() {
                 <option value="">{t("common.select")}</option>
                 <option value="seeds">{t("categories.seeds")}</option>
                 <option value="tea">{t("categories.tea")}</option>
-                <option value="vegetables">{t("categories.vegetables")}</option>
-                <option value="fruits">{t("categories.fruits")}</option>
-                <option value="grains">{t("categories.grains")}</option>
               </select>
             </div>
           </div>

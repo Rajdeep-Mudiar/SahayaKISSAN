@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import api from "../api/axios";
 import "./Tea.css";
 
 const API = "http://localhost:5000/api/buy";
@@ -34,7 +35,7 @@ export default function Tea() {
         setLoading(true);
         setError(null);
         
-        const res = await axios.get(`${API}/category/tea`, {
+        const res = await api.get(`${API}/category/tea`, {
           params: {
             priceMax: maxPrice
           }
@@ -118,7 +119,8 @@ const handleBuyNow = (item) => {
     return (
       <div className="buying-page">
         <div className="banner">
-          <h1 className="banner-title">Fresh From Farms 🌾</h1>
+          <h1 className="banner-title">Fresh and Organic Products</h1>
+          <p>Directly from farms to your home</p>
         </div>
         <div style={{ textAlign: 'center', padding: '60px' }}>
           <div className="spinner"></div>
@@ -211,7 +213,6 @@ const handleBuyNow = (item) => {
             </div>
           )}
 
-          {/* SCROLLABLE PRODUCTS GRID */}
           <div className="product-grid">
             {filteredProducts.map((item) => (
               <div className="product-card" key={item._id || item.id}  onClick={() => navigate(`/product/${item._id}`)}>
@@ -220,8 +221,12 @@ const handleBuyNow = (item) => {
                   alt={item.cropName || item.name} 
                 />
                 <h4>{item.cropName || item.name}</h4>
-                <p>₹{item.price}</p>
-                <p className="location">{item.city}, {item.state}</p>
+
+ 
+
+              <p>₹{item.price}/kg</p>
+              <p className="location">{item.city}, {item.state}</p>
+
 
                 <div className="btn-group">
                   <button 
