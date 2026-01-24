@@ -21,11 +21,21 @@ export const ChatProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Create initial session on mount
+    // Load existing sessions or create a new one if none exist
     const initSession = async () => {
-      const id = await apiCreateSession("local-user", "New Chat");
-      setSessionId(id || uuidv4());
-      loadSessions();
+      const list = await fetchSessions("local-user");
+      setSessions(list);
+      
+      if (list.length > 0) {
+        // Use the most recent session
+        setSessionId(list[0].id);
+      } else {
+        // Create initial session only if none exist
+        const id = await apiCreateSession("local-user", "New Chat");
+        setSessionId(id || uuidv4());
+        const updatedList = await fetchSessions("local-user");
+        setSessions(updatedList);
+      }
     };
     initSession();
   }, []);
