@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { AuthContext } from "../context/AuthContext";
 import api from "../api/axios";
 import "./Navbar.css";
-import HomeExtraSection from "./AfterHeroSections"
+import HomeExtraSection from "./AfterHeroSections";
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const [openBusiness, setOpenBusiness] = useState(false);
@@ -13,9 +13,9 @@ export default function Navbar() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleBusinessToggle = () => setOpenBusiness(prev => !prev);
+  const handleBusinessToggle = () => setOpenBusiness((prev) => !prev);
   const closeBusinessMenu = () => setOpenBusiness(false);
-  const toggleMobileMenu = () => setMobileOpen(prev => !prev);
+  const toggleMobileMenu = () => setMobileOpen((prev) => !prev);
   const closeMobileMenu = () => setMobileOpen(false);
 
   async function logout() {
@@ -38,8 +38,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleRouteChange = () => closeMobileMenu();
-    window.addEventListener('popstate', handleRouteChange);
-    return () => window.removeEventListener('popstate', handleRouteChange);
+    window.addEventListener("popstate", handleRouteChange);
+    return () => window.removeEventListener("popstate", handleRouteChange);
   }, []);
 
   return (
@@ -61,19 +61,31 @@ export default function Navbar() {
 
             {openBusiness && (
               <div className="navbar__megaMenu">
-                <Link to="/seeds" className="mega-card" onClick={closeBusinessMenu}>
+                <Link
+                  to="/seeds"
+                  className="mega-card"
+                  onClick={closeBusinessMenu}
+                >
                   <img src="/images/seeds-card.jpg" alt="Seeds" />
                   <h4>{t("seeds")}</h4>
                   <p>Buy certified seeds from verified farmers & suppliers</p>
                 </Link>
 
-                <Link to="/tea" className="mega-card" onClick={closeBusinessMenu}>
+                <Link
+                  to="/tea"
+                  className="mega-card"
+                  onClick={closeBusinessMenu}
+                >
                   <img src="/images/tea-card.webp" alt="Tea" />
                   <h4>{t("tea")}</h4>
                   <p>Quality tea saplings and plantation resources</p>
                 </Link>
 
-                <Link to="/sensors-iot" className="mega-card" onClick={closeBusinessMenu}>
+                <Link
+                  to="/sensors-iot"
+                  className="mega-card"
+                  onClick={closeBusinessMenu}
+                >
                   <img src="/images/sensors-iot.webp" alt="IoT" />
                   <h4>{t("sensorsAndIoT")}</h4>
                   <p>Smart sensors & IoT for modern precision farming</p>
@@ -85,13 +97,28 @@ export default function Navbar() {
           <Link to="/schemes" className="navbar__link">
             {t("schemes")}
           </Link>
+          <a
+            href="http://localhost:5175"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="navbar__link"
+          >
+            {t("chatbot")}
+          </a>
 
-          <Link to="https://sahaya-kissan-research.vercel.app/" className="navbar__link">
+          <Link
+            to="https://sahaya-kissan-research.vercel.app/"
+            className="navbar__link"
+          >
             {t("research")}
           </Link>
 
           {!user ? (
-            <NavLink to="/auth" className="navbar__link login-link" onClick={closeMobileMenu}>
+            <NavLink
+              to="/auth"
+              className="navbar__link login-link"
+              onClick={closeMobileMenu}
+            >
               {t("login")}
             </NavLink>
           ) : (
@@ -111,8 +138,8 @@ export default function Navbar() {
           <option value="as">অসমীয়া</option>
         </select>
 
-        <button 
-          className="navbar__hamburger" 
+        <button
+          className="navbar__hamburger"
           onClick={toggleMobileMenu}
           aria-label="Toggle menu"
         >
@@ -122,38 +149,76 @@ export default function Navbar() {
         </button>
       </div>
 
-      <div className={`navbar__mobile-menu ${mobileOpen ? 'navbar__mobile-menu--open' : ''}`}>
+      <div
+        className={`navbar__mobile-menu ${mobileOpen ? "navbar__mobile-menu--open" : ""}`}
+      >
         <div className="navbar__mobile-container">
           <div className="navbar__mobile-business">
             <span className="navbar__mobile-title">{t("business")}</span>
-            <Link to="/seeds" className="navbar__mobile-link" onClick={closeMobileMenu}>
+            <Link
+              to="/seeds"
+              className="navbar__mobile-link"
+              onClick={closeMobileMenu}
+            >
               <span className="mobile-link-title">{t("seeds")}</span>
               <span className="mobile-link-cta">Buy certified seeds</span>
             </Link>
-            <Link to="/tea" className="navbar__mobile-link" onClick={closeMobileMenu}>
+            <Link
+              to="/tea"
+              className="navbar__mobile-link"
+              onClick={closeMobileMenu}
+            >
               <span className="mobile-link-title">{t("tea")}</span>
               <span className="mobile-link-cta">Tea saplings & plantation</span>
             </Link>
-            <Link to="/sensors-iot" className="navbar__mobile-link" onClick={closeMobileMenu}>
+            <Link
+              to="/sensors-iot"
+              className="navbar__mobile-link"
+              onClick={closeMobileMenu}
+            >
               <span className="mobile-link-title">{t("sensorsAndIoT")}</span>
               <span className="mobile-link-cta">Smart farming devices</span>
             </Link>
           </div>
 
-          <Link to="/schemes" className="navbar__mobile-link" onClick={closeMobileMenu}>
+          <Link
+            to="/schemes"
+            className="navbar__mobile-link"
+            onClick={closeMobileMenu}
+          >
             {t("schemes")}
           </Link>
+          <a
+            href="http://localhost:5175"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="navbar__mobile-link"
+            onClick={closeMobileMenu}
+          >
+            {t("chatbot")}
+          </a>
 
-          <Link to="https://sahaya-kissan-research.vercel.app/" className="navbar__mobile-link" onClick={closeMobileMenu}>
+          <Link
+            to="https://sahaya-kissan-research.vercel.app/"
+            className="navbar__mobile-link"
+            onClick={closeMobileMenu}
+          >
             {t("research")}
           </Link>
 
           {!user ? (
-            <NavLink to="/auth" className="navbar__mobile-link navbar__mobile-login" onClick={closeMobileMenu}>
+            <NavLink
+              to="/auth"
+              className="navbar__mobile-link navbar__mobile-login"
+              onClick={closeMobileMenu}
+            >
               {t("login")}
             </NavLink>
           ) : (
-            <button className="navbar__mobile-link mobile-logout-btn" onClick={logout}>
+            <button
+              className="navbar__mobile-link mobile-logout-btn"
+              onClick={logout}
+            >
               {t("logout")}
             </button>
           )}

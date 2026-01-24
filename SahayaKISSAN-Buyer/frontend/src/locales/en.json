@@ -4,6 +4,7 @@
   "tea": "Tea",
   "sensorsAndIoT": "Sensors & IoT",
   "schemes": "Schemes",
+  "chatbot": "Sahayabot",
   "research": "SahayaKISSAN Research",
   "afterHero": {
     "whoWeAre": {
@@ -99,7 +100,7 @@
     "quickLinks": "Quick Links",
     "services": "Our Services",
     "cropMonitoring": "Crop Monitoring",
-    "weatherForecast": "Weather Forecast", 
+    "weatherForecast": "Weather Forecast",
     "govSchemes": "Government Schemes",
     "marketPrices": "Market Prices",
     "contact": "Contact Info",

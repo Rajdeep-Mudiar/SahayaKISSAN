@@ -1,0 +1,17 @@
+.app-shell {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+  height: 100%;
+  padding-top: 70px; /* Space for fixed navbar */
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
