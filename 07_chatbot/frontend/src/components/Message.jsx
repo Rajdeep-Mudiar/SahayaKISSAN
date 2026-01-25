@@ -5,6 +5,16 @@ import chatbotLogo from "../assets/chatbot.png";
 function Message({ role, content, navigationUrl, navigationLabel }) {
   const isUser = role === "user";
   const navigate = useNavigate();
+  const handleNavigate = () => {
+    if (!navigationUrl) return;
+    if (/^https?:\/\//i.test(navigationUrl)) {
+      // External/absolute URL: open in a new tab
+      window.open(navigationUrl, "_blank", "noopener");
+    } else {
+      // Internal route: use client-side navigation
+      navigate(navigationUrl);
+    }
+  };
 
   return (
     <div className={`message-row ${isUser ? "user" : "assistant"}`}>
@@ -16,10 +26,7 @@ function Message({ role, content, navigationUrl, navigationLabel }) {
       <div className="message-content">
         <span className="message-bubble">{content}</span>
         {navigationUrl && (
-          <button
-            className="nav-button"
-            onClick={() => navigate(navigationUrl)}
-          >
+          <button className="nav-button" onClick={handleNavigate}>
             {navigationLabel}
           </button>
         )}
