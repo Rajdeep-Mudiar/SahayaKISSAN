@@ -1,0 +1,15 @@
+{
+  "name": "sahayakissan-monorepo",
+  "version": "1.0.0",
+  "description": "Run all SahayaKISSAN frontends",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:chatbot\" \"npm run dev:buyer\" \"npm run dev:seller\"",
+    "dev:chatbot": "cd 07_chatbot/frontend && npm run dev",
+    "dev:buyer": "cd SahayaKISSAN-Buyer/frontend && npm run dev",
+    "dev:seller": "cd SahayaKISSAN-Seller/frontend && npm run dev",
+    "install:all": "cd 07_chatbot/frontend && npm install && cd ../../SahayaKISSAN-Buyer/frontend && npm install && cd ../../SahayaKISSAN-Seller/frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
