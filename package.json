@@ -10,6 +10,6 @@
     "install:all": "cd 07_chatbot/frontend && npm install && cd ../../SahayaKISSAN-Buyer/frontend && npm install && cd ../../SahayaKISSAN-Seller/frontend && npm install"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.2.1"
   }
 }

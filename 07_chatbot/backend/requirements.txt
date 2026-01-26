@@ -15,10 +15,10 @@ cryptography==41.0.7
 # LLM & AI
 langchain==0.0.350
 langchain-community==0.0.10
-ollama==0.0.15
+ollama==0.1.9
 
 # Speech Recognition & Text-to-Speech
-openai-whisper==20231114
+openai-whisper==20231117
 SoundFile==0.12.1
 
 # Machine Learning & NLP

@@ -16,18 +16,28 @@ npm install
 # install ALL frontend deps
 npm run install:all
 
-# start marketplace backend (terminal 1)
-cd SahayaKISSAN-API/backend && npm install && npm start
+# start all frontends (terminal 1)
+cd SahayaKISSAN
+npm install concurrently --save-dev
+npm run dev
 
-# create/activate chatbot env (terminal 2)
+
+# start marketplace backend (terminal 2)
+cd SahayaKISSAN-API/backend && npm install && nodemon server.js
+
+
+#you need python 3.10.11 and go to 07_chatbot/backend
+py -3.10 -m venv chatbot_env
+source chatbot_env/Scripts/activate
+pip install --upgrade pip setuptools wheel
+
+# create/activate chatbot env (terminal 3)
 cd 07_chatbot/backend
 conda env create -f environment.yml   # or: conda create -n chatbot python=3.10 && pip install -r requirements.txt
 conda activate chatbot
 uvicorn app.main:app --reload --port 8000
 
-# start all frontends (terminal 3)
-cd SahayaKISSAN
-npm run dev
+
 ```
 
 Ports: Buyer 5173, Seller 5174, Chatbot 5175, Marketplace API 3000, Chatbot API 8000.
