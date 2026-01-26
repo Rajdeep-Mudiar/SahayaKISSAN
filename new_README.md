@@ -36,6 +36,9 @@ cd 07_chatbot/backend
 conda env create -f environment.yml   # or: conda create -n chatbot python=3.10 && pip install -r requirements.txt
 conda activate chatbot
 uvicorn app.main:app --reload --port 8000
+#or
+python -m uvicorn app.main:app --reload --port 8000
+
 
 
 ```
