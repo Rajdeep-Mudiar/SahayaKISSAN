@@ -432,3 +432,32 @@ body {
     padding: 0 10px;
   }
 }
+.nearby-box {
+  margin-bottom: 12px;
+}
+
+.nearby-toggle {
+  width: 100%;
+  padding: 10px;
+  background: #1e8e3e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nearby-text {
+  font-size: 13px;
+  margin: 6px 0;
+  color: #2e7d32;
+}
+
+.chat-btn {
+  background: #fff3cd;
+  border: 1px solid #ffca28;
+  padding: 6px;
+  border-radius: 4px;
+  margin-top: 6px;
+  cursor: pointer;
+}

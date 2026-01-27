@@ -3,16 +3,26 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import api from "../api/axios";
 import "./Tea.css";
+import { useDispatch, useSelector } from "react-redux";
+import { enableNearby, disableNearby } from "../store/nearbySlice";
+import NearbyLocationModal from "../components/NearbyLocationModal";
+import { useLocation } from "react-router-dom";
+
 
 const API = "http://localhost:5000/api/buy";
 
 export default function Tea() {
+  const location = useLocation();
   const navigate = useNavigate();
   const [listings, setListings] = useState([]);
   const [cart, setCart] = useState([]);
   const [maxPrice, setMaxPrice] = useState(200);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const nearby = useSelector(state => state.nearby);
+  const [showLocationModal, setShowLocationModal] = useState(false);
+
 
   useEffect(() => {
     const savedCart = localStorage.getItem('farmCart');
@@ -28,6 +38,12 @@ export default function Tea() {
       localStorage.removeItem('farmCart');
     }
   }, [cart]);
+  useEffect(() => {
+    const savedLocation = localStorage.getItem("nearbyLocation");
+    if (savedLocation) {
+      dispatch(enableNearby(JSON.parse(savedLocation)));
+    }
+  }, []);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -37,9 +53,12 @@ export default function Tea() {
         
         const res = await api.get(`${API}/category/tea`, {
           params: {
-            priceMax: maxPrice
+            priceMax: maxPrice,
+            nearby: nearby.enabled,
+            city: nearby.location?.city || ""
           }
         });
+
         
         setListings(res.data.data || []);
       } catch (err) {
@@ -57,11 +76,11 @@ export default function Tea() {
     };
 
     fetchListings();
-  }, [maxPrice]);
+  }, [maxPrice,nearby]);
 
-  const filteredProducts = listings.filter(
-    (item) => item.price <= maxPrice
-  );
+  const filteredProducts = listings;
+
+
 
  const addToCart = (item) => {
   setCart(prevCart => {
@@ -94,7 +113,8 @@ const buyNow = (item) => {
     }
   });
   
-  navigate('/cart');
+  navigate("/cart", { state: { from: location.pathname } });
+
 };
 
 const handleAddToCart = (item) => {
@@ -138,7 +158,30 @@ const handleBuyNow = (item) => {
 
       <div className="main-layout">
         <div className="filters">
-          <h3>Filter</h3>
+          <div className="nearby-box">
+            <button
+              className="nearby-toggle"
+              onClick={() => {
+                if (nearby.enabled) {
+                  dispatch(disableNearby());
+                } else {
+                  setShowLocationModal(true);
+                }
+              }}
+            >
+               {nearby.enabled ? "Nearby Sells ON" : "See Nearby Sells"}
+            </button>
+
+
+            {nearby.enabled && (
+              <p className="nearby-text">
+                Showing sellers from <b>{nearby.location.city}</b>
+              </p>
+            )}
+
+            <h3>Filter</h3>
+          </div>
+
 
           <div className="filter-section">
             <h4>Price Range</h4>
@@ -216,6 +259,17 @@ const handleBuyNow = (item) => {
           <div className="product-grid">
             {filteredProducts.map((item) => (
               <div className="product-card" key={item._id || item.id}  onClick={() => navigate(`/product/${item._id}`)}>
+                {nearby.enabled && (
+                <button
+                  className="chat-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/chat/${item._id}`);
+                  }}
+                >
+                  💬 Chat with Farmer
+                </button>
+              )}
                 <img 
                   src={item.images?.[0] || item.image || "https://via.placeholder.com/300x200/90EE90/228B22?text=No+Image"} 
                   alt={item.cropName || item.name} 
@@ -251,6 +305,16 @@ const handleBuyNow = (item) => {
           </div>
         </div>
       </div>
+      {showLocationModal && (
+      <NearbyLocationModal
+        onClose={() => setShowLocationModal(false)}
+        onConfirm={(locationData) => {
+          dispatch(enableNearby(locationData));
+          setShowLocationModal(false);
+        }}
+      />
+    )}
+
     </div>
   );
 }

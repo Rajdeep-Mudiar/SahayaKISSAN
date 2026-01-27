@@ -8,21 +8,27 @@ const router = express.Router();
 router.get("/category/:category", async (req, res) => {
   try {
     const { category } = req.params;
-    const { priceMax, state, page = 1, limit = 12 } = req.query;
+    const { priceMax, state, city, nearby, page = 1, limit = 12 } = req.query;
 
     const filter = {
       category,
       status: "active",
+
+      // Price filter
       ...(priceMax && { price: { $lte: Number(priceMax) } }),
-      ...(state && { state })
+
+      // Normal state filter (existing)
+      ...(state && { state }),
+
+      // 🔥 NEW: Nearby city filter
+      ...(nearby === "true" && city && { city })
     };
 
     const listings = await Listing.find(filter)
-      .populate("user", "name") // 👈 THIS LINE
+      .populate("user", "name")
       .sort({ createdAt: -1 })
       .limit(Number(limit))
       .skip((Number(page) - 1) * Number(limit));
-
 
     const total = await Listing.countDocuments(filter);
 
@@ -35,10 +41,12 @@ router.get("/category/:category", async (req, res) => {
         pages: Math.ceil(total / limit)
       }
     });
+
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 });
+
 router.get('/product/:id', async (req, res) => {
   try {
     const product = await Listing.findById(req.params.id);
