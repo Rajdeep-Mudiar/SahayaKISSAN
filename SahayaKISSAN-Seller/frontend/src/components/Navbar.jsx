@@ -38,6 +38,7 @@ export default function Navbar() {
           <img src="/Logo.svg" alt="SahayaKISSAN" />
         </Link>
 
+        {/* DESKTOP MENU */}
         <div className="navbar__menu">
           {user && (
             <>
@@ -47,6 +48,11 @@ export default function Navbar() {
 
               <Link to="/seller/add-new" className="navbar__link">
                 {t("sellerNav.addNew")}
+              </Link>
+
+              {/* 🔥 NEW: Seller Chats */}
+              <Link to="/seller/chats" className="navbar__link">
+                💬 Chats
               </Link>
             </>
           )}
@@ -93,8 +99,14 @@ export default function Navbar() {
             <Link to="/seller/my-sells" onClick={closeMobileMenu}>
               {t("sellerNav.mySells")}
             </Link>
+
             <Link to="/seller/add-new" onClick={closeMobileMenu}>
               {t("sellerNav.addNew")}
+            </Link>
+
+            {/* 🔥 Chats in mobile */}
+            <Link to="/seller/chats" onClick={closeMobileMenu}>
+              💬 Chats
             </Link>
           </>
         )}

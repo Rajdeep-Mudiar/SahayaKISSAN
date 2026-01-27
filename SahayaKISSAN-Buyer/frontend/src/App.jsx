@@ -8,6 +8,8 @@ const Tea = lazy(()=>import("./pages/Tea"))
 const Seeds = lazy(()=>import("./pages/Seeds"))
 const Cart = lazy(()=>import("./pages/Cart"))
 const Schemes = lazy(()=>import("./pages/Schemes"))
+const ChatPage = lazy(()=>import("./pages/ChatPage"))
+
 
 import ProductDetail from './pages/ProductDetail';
 import Reviews from './pages/Reviews';
@@ -39,6 +41,8 @@ function App() {
             </ProtectedRoute>
           }/>
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/chat/:listingId" element={<ChatPage />} />
+
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

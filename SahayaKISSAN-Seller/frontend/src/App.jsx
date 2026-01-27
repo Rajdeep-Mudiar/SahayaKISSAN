@@ -7,6 +7,10 @@ const PageNotFound = lazy(()=>import('./pages/PageNotFound'));
 const SellForm = lazy(()=>import("./pages/SellForm"));
 const MyListing = lazy(()=>import("./pages/MyListing"));
 const EditListing = lazy(()=>import("./pages/EditListing"));
+const SellerChats = lazy(()=>import("./pages/SellerChats"));
+const ChatPage = lazy(()=>import("./pages/ChatPage"));
+
+
 import Auth from "./components/Auth";
 
 import PageLoader from "./components/PageLoader";
@@ -31,6 +35,9 @@ function App() {
             </ProtectedRoute>
           }/>
           <Route path="/seller/listings/edit/:id" element={<EditListing />} />
+          <Route path="/seller/chats" element={<SellerChats />} />
+          <Route path="/seller/chat/:roomId" element={<ChatPage />} />
+
         </Route>
         <Route path="*" element={<PageNotFound/>}/>
       </Routes>
