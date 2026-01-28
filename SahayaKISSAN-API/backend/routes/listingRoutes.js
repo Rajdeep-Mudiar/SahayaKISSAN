@@ -13,6 +13,7 @@ import isLoggedIn from "../middlewares/isLoggedIn.js";
 const router = express.Router();
 
 /* ================= CREATE LISTING ================= */
+/* ================= CREATE LISTING ================= */
 router.post(
   "/",
   isLoggedIn,
@@ -32,7 +33,11 @@ router.post(
         city,
         harvestDate,
         organic,
-        mobile
+        mobile,
+
+        // 🔥 emergency
+        isEmergency,
+        emergencyDuration
       } = req.body;
 
       if (!cropName || !category || !quantity || !price) {
@@ -44,8 +49,20 @@ router.post(
 
       const imageUrls = req.files?.map((file) => file.path) || [];
 
+      // ✅ normalize boolean
+      const emergencyEnabled =
+        isEmergency === true || isEmergency === "true";
+
+      let emergencyEndTime = null;
+
+      if (emergencyEnabled && emergencyDuration) {
+        emergencyEndTime = new Date(
+          Date.now() + Number(emergencyDuration) * 60 * 60 * 1000
+        );
+      }
+
       const listing = await Listing.create({
-        user: req.user._id, // 🔥 OWNER SET HERE
+        user: req.user._id,
         cropName,
         category,
         variety,
@@ -60,6 +77,11 @@ router.post(
         organic,
         mobile,
         images: imageUrls,
+
+        // ✅ emergency fields
+        isEmergency: emergencyEnabled,
+        emergencyEndTime,
+
         status: "active"
       });
 
@@ -70,10 +92,14 @@ router.post(
       });
     } catch (error) {
       console.error("CREATE ERROR:", error);
-      res.status(500).json({ success: false, message: error.message });
+      res.status(500).json({
+        success: false,
+        message: error.message
+      });
     }
   }
 );
+
 
 /* ================= GET MY LISTINGS ================= */
 router.get("/my", isLoggedIn, getMyListings);

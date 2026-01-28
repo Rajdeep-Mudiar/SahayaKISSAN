@@ -23,7 +23,9 @@ export default function SellForm() {
     city: "",
     harvestDate: "",
     organic: "",
-    mobile: ""
+    mobile: "",
+     isEmergency: false,
+  emergencyDuration: 2
   });
   
   const [images, setImages] = useState([]);
@@ -71,8 +73,11 @@ export default function SellForm() {
       const formData = new FormData();
       
       Object.keys(form).forEach(key => {
-        if (form[key]) formData.append(key, form[key]);
+        if (form[key] !== "" && form[key] !== null) {
+          formData.append(key, form[key]);
+        }
       });
+
       
       images.forEach((image) => {
         formData.append('images', image);
@@ -327,6 +332,44 @@ export default function SellForm() {
             </div>
           </div>
         </div>
+          <div className="section">
+        <h3> Emergency Sale</h3>
+
+        <div className="row">
+          <label>
+            <input
+              type="checkbox"
+              checked={form.isEmergency}
+              onChange={(e) =>
+                setForm(prev => ({
+                  ...prev,
+                  isEmergency: e.target.checked
+                }))
+              }
+            />
+            Enable Emergency Sale
+          </label>
+        </div>
+
+        {form.isEmergency && (
+          <div className="row">
+            <div className="field small">
+              <label>Sale Duration (hours)</label>
+              <select
+                name="emergencyDuration"
+                value={form.emergencyDuration}
+                onChange={handleChange}
+              >
+                <option value={1}>1 Hour</option>
+                <option value={2}>2 Hours</option>
+                <option value={4}>4 Hours</option>
+                <option value={6}>6 Hours</option>
+                <option value={12}>12 Hours</option>
+              </select>
+            </div>
+          </div>
+        )}
+      </div>
 
         <button 
           className={`submit-btn ${isLoading ? 'loading' : ''}`} 

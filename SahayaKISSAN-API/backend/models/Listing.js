@@ -41,6 +41,15 @@ const listingSchema = new mongoose.Schema(
         message: "Maximum 6 images allowed"
       }
     },
+  // ===== EMERGENCY SELLING =====
+  isEmergency: {
+    type: Boolean,
+    default: false
+  },
+
+  emergencyEndTime: {
+    type: Date
+  },
 
     status: {
       type: String,

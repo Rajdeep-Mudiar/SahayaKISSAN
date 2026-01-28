@@ -15,6 +15,8 @@ export default function Tea() {
   const location = useLocation();
   const navigate = useNavigate();
   const [listings, setListings] = useState([]);
+  const [, forceUpdate] = useState(0);
+
   const [cart, setCart] = useState([]);
   const [maxPrice, setMaxPrice] = useState(200);
   const [loading, setLoading] = useState(true);
@@ -30,7 +32,13 @@ export default function Tea() {
       setCart(JSON.parse(savedCart));
     }
   }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      forceUpdate(v => v + 1);
+    }, 1000);
 
+    return () => clearInterval(interval);
+  }, []);
   useEffect(() => {
     if (cart.length > 0) {
       localStorage.setItem('farmCart', JSON.stringify(cart));
@@ -149,6 +157,18 @@ const handleBuyNow = (item) => {
       </div>
     );
   }
+  function getRemainingTime(endTime) {
+    if (!endTime) return null;
+
+    const diff = new Date(endTime) - new Date();
+    if (diff <= 0) return "Expired";
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    return `${hours}h ${minutes}m ${seconds}s`;
+  }
 
   return (
     <div className="buying-page">
@@ -187,7 +207,7 @@ const handleBuyNow = (item) => {
             <h4>Price Range</h4>
             <input
               type="range"
-              min="20"
+              min="1"
               max="300"
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
@@ -258,7 +278,8 @@ const handleBuyNow = (item) => {
 
           <div className="product-grid">
             {filteredProducts.map((item) => (
-              <div className="product-card" key={item._id || item.id}  onClick={() => navigate(`/product/${item._id}`)}>
+              <div className={`product-card ${item.isEmergency ? "emergency-card" : ""}`}
+  key={item._id || item.id} onClick={() => navigate(`/product/${item._id}`)}>
                 {nearby.enabled && (
                 <button
                   className="chat-btn"
@@ -270,6 +291,15 @@ const handleBuyNow = (item) => {
                   💬 Chat with Farmer
                 </button>
               )}
+              {item.isEmergency && (
+                  <>
+                    <div className="hot-sale-badge">🔥 HOT SALE</div>
+                    <div className="sale-timer">
+                      ⏱️ {getRemainingTime(item.emergencyEndTime)}
+                    </div>
+                  </>
+                )}
+
                 <img 
                   src={item.images?.[0] || item.image || "https://via.placeholder.com/300x200/90EE90/228B22?text=No+Image"} 
                   alt={item.cropName || item.name} 
