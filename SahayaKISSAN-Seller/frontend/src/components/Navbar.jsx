@@ -34,7 +34,8 @@ export default function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}>
       <div className="navbar__container">
-        <Link to="http://localhost:5173/" className="navbar__logo">
+        {/* LOGO */}
+        <Link to="/" className="navbar__logo">
           <img src="/Logo.svg" alt="SahayaKISSAN" />
         </Link>
 
@@ -50,9 +51,13 @@ export default function Navbar() {
                 {t("sellerNav.addNew")}
               </Link>
 
-              {/* 🔥 NEW: Seller Chats */}
               <Link to="/seller/chats" className="navbar__link">
                 💬 Chats
+              </Link>
+
+              {/* ✅ Charity added */}
+              <Link to="/charity" className="navbar__link">
+                🤝 Charity
               </Link>
             </>
           )}
@@ -72,6 +77,7 @@ export default function Navbar() {
           )}
         </div>
 
+        {/* LANGUAGE */}
         <select
           value={i18n.language}
           onChange={(e) => i18n.changeLanguage(e.target.value)}
@@ -82,6 +88,7 @@ export default function Navbar() {
           <option value="as">অসমীয়া</option>
         </select>
 
+        {/* HAMBURGER */}
         <button
           className="navbar__hamburger"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -93,7 +100,11 @@ export default function Navbar() {
       </div>
 
       {/* MOBILE MENU */}
-      <div className={`navbar__mobile-menu ${mobileOpen ? "open" : ""}`}>
+      <div
+        className={`navbar__mobile-menu ${
+          mobileOpen ? "navbar__mobile-menu--open" : ""
+        }`}
+      >
         {user && (
           <>
             <Link to="/seller/my-sells" onClick={closeMobileMenu}>
@@ -104,9 +115,13 @@ export default function Navbar() {
               {t("sellerNav.addNew")}
             </Link>
 
-            {/* 🔥 Chats in mobile */}
             <Link to="/seller/chats" onClick={closeMobileMenu}>
               💬 Chats
+            </Link>
+
+            {/* ✅ Charity in mobile */}
+            <Link to="/charity" onClick={closeMobileMenu}>
+              🤝 Charity
             </Link>
           </>
         )}

@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ==============================
+   FULL BACKGROUND (AGRICULTURE)
+   ============================== */
+.coming-container {
+  min-height: 100vh;
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.45)
+    ),
+    url("https://media.istockphoto.com/id/543212762/photo/tractor-cultivating-field-at-spring.jpg?s=612x612&w=0&k=20&c=uJDy7MECNZeHDKfUrLNeQuT7A1IqQe89lmLREhjIJYU=");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ==============================
+   GLASSMORPHISM CARD
+   ============================== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 50px 40px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 1.2s ease;
+}
+
+/* ==============================
+   ICON
+   ============================== */
+.icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+/* ==============================
+   TEXT STYLES
+   ============================== */
+.glass-card h1 {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.main-text {
+  font-size: 17px;
+  margin-bottom: 12px;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+.sub-text {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+/* ==============================
+   BUTTON (PERFECT TEXT CENTER)
+   ============================== */
+.notify-btn {
+  display: flex;                 /* 👈 key fix */
+  align-items: center;           /* vertical center */
+  justify-content: center;       /* horizontal center */
+
+  margin: 0 auto;
+  padding: 12px 32px;
+  border-radius: 30px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #ff9800, #ff5722);
+  color: #ffffff;
+
+  transition: all 0.3s ease;
+}
+
+.notify-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* ==============================
+   FADE IN ANIMATION
+   ============================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==============================
+   MOBILE RESPONSIVE
+   ============================== */
+@media (max-width: 480px) {
+  .glass-card {
+    padding: 35px 25px;
+  }
+
+  .glass-card h1 {
+    font-size: 28px;
+  }
+
+  .main-text {
+    font-size: 15px;
+  }
+}
