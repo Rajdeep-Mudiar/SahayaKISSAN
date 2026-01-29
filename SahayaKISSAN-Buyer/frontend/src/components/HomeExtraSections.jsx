@@ -1,9 +1,28 @@
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 import Reveal from "./Reveal";
 import "./HomeExtraSections.css";
 
 export default function HomeExtraSections() {
   const { t } = useTranslation();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+  async function fetchProducts() {
+    try {
+      const res = await fetch("http://localhost:5000/api/buy/low-price-random");
+      const data = await res.json();
+
+      if (data.success) {
+        setProducts(data.data);
+      }
+    } catch (err) {
+      console.error("Product fetch failed", err);
+    }
+  }
+
+  fetchProducts();
+}, []);
 
   return (
     <section className="home-extra">
@@ -34,36 +53,7 @@ export default function HomeExtraSections() {
         </div>
       </Reveal>
 
-      <Reveal>
-        <div className="how-section">
-          <div className="section-header">
-            <h2>{t("how.title")}</h2>
-            <p>{t("how.subtitle")}</p>
-          </div>
-          <div className="how-steps">
-            <div className="how-step">
-              <div className="step-number">01</div>
-              <h3>{t("how.step1.title")}</h3>
-              <p>{t("how.step1.desc")}</p>
-            </div>
-            <div className="how-step">
-              <div className="step-number">02</div>
-              <h3>{t("how.step2.title")}</h3>
-              <p>{t("how.step2.desc")}</p>
-            </div>
-            <div className="how-step">
-              <div className="step-number">03</div>
-              <h3>{t("how.step3.title")}</h3>
-              <p>{t("how.step3.desc")}</p>
-            </div>
-            <div className="how-step">
-              <div className="step-number">04</div>
-              <h3>{t("how.step4.title")}</h3>
-              <p>{t("how.step4.desc")}</p>
-            </div>
-          </div>
-        </div>
-      </Reveal>
+
 
       <Reveal>
         <div className="products-section">
@@ -71,30 +61,27 @@ export default function HomeExtraSections() {
             <h2>{t("products.title")}</h2>
             <p>{t("products.subtitle")}</p>
           </div>
+
           <div className="products-grid">
-            <div className="product-placeholder">
-              <div className="product-image"></div>
-              <h4>{t("products.placeholder1")}</h4>
-              <p>₹{t("products.price1")}</p>
-            </div>
-            <div className="product-placeholder">
-              <div className="product-image"></div>
-              <h4>{t("products.placeholder2")}</h4>
-              <p>₹{t("products.price2")}</p>
-            </div>
-            <div className="product-placeholder">
-              <div className="product-image"></div>
-              <h4>{t("products.placeholder3")}</h4>
-              <p>₹{t("products.price3")}</p>
-            </div>
-            <div className="product-placeholder">
-              <div className="product-image"></div>
-              <h4>{t("products.placeholder4")}</h4>
-              <p>₹{t("products.price4")}</p>
-            </div>
+            {products.map((item) => (
+              <div key={item._id} className="product-placeholder">
+                <div className="product-image">
+                  <img
+                    src={item.images?.[0] || "/images/placeholder.png"}
+                    alt={item.cropName}
+                  />
+                </div>
+
+                <h4>{item.cropName}</h4>
+                <p>
+                  ₹{item.price} / {item.unit}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </Reveal>
+
 
 
       <Reveal>
@@ -102,7 +89,7 @@ export default function HomeExtraSections() {
           <div 
             className="sdg-hero-bg"
             style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')`
+              backgroundImage: `url('/images/sdg.jpeg')`
             }}
           >
             <div className="sdg-dark-overlay"></div>
@@ -143,12 +130,16 @@ export default function HomeExtraSections() {
           <div className="cta-content">
             <h2>{t("cta.title")}</h2>
             <p>{t("cta.desc")}</p>
+
             <div className="cta-buttons">
-              <button className="cta-primary">{t("cta.button2")}</button>
+              <a href="tel:7099774852" className="cta-primary">
+                {t("cta.button2")}
+              </a>
             </div>
           </div>
         </div>
       </Reveal>
+
     </section>
   );
 }

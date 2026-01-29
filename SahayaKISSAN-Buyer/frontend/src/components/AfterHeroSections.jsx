@@ -1,13 +1,50 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Reveal from "./Reveal";
 import "./AfterHeroSections.css";
 
+const scenes = [
+  {
+    id: "smart",
+    image: "/images/agroAI.png",
+    titleKey: "afterHero.enable.cards.smart.title",
+    descKey: "afterHero.enable.cards.smart.desc",
+  },
+  {
+    id: "schemes",
+    image: "/images/agroSchemes.jpg",
+    titleKey: "afterHero.enable.cards.schemes.title",
+    descKey: "afterHero.enable.cards.schemes.desc",
+  },
+  {
+    id: "tech",
+    image: "/images/agroAdoption.png",
+    titleKey: "afterHero.enable.cards.tech.title",
+    descKey: "afterHero.enable.cards.tech.desc",
+  },
+  {
+    id: "sustain",
+    image: "/images/sustainable.png",
+    titleKey: "afterHero.enable.cards.sustain.title",
+    descKey: "afterHero.enable.cards.sustain.desc",
+  },
+];
+
 export default function AfterHeroSections() {
   const { t } = useTranslation();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % scenes.length);
+    }, 8000); 
+    return () => clearInterval(interval);
+  }, []);
+
+  const activeScene = scenes[activeIndex];
 
   return (
     <section className="after-hero">
-
       <div className="section-row">
         <Reveal>
           <div className="section-text">
@@ -45,7 +82,7 @@ export default function AfterHeroSections() {
                 width: "100%",
                 height: "420px",
                 objectFit: "contain",
-                backgroundColor: "#f2f7f3"
+                backgroundColor: "#f2f7f3",
               }}
             />
           </div>
@@ -53,101 +90,60 @@ export default function AfterHeroSections() {
       </div>
 
       <Reveal>
-    <div className="enable-section">
-      <div className="section-header">
-        <h2>{t("afterHero.enable.title")}</h2>
-        <p>{t("afterHero.enable.subtitle")}</p>
-      </div>
+        <div className="cinematic-wrapper">
+          <video
+            className="cinematic-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/images/agro-placeholder.jpg"
+          >
+            <source src="/videos/agro-farming.mp4" type="video/mp4" />
+            Your browser doesn't support video.
+          </video>
 
-      <div className="enable-grid">
-        <div className="enable-card">
-          <img 
-            src="/images/agroAI.png"
-            alt="Sustainable Farming"
-            className="card-hero-image"
-            style={{
-              width: "100%",
-              height: "260px",
-              objectFit: "contain",
-              backgroundColor: "#f2f7f3",
-              padding: "12px",
-              borderRadius: "12px"
-            }}
-          />
+          <div className="cinematic-overlay" />
 
-          <div className="card-content">
-            <h3>{t("afterHero.enable.cards.smart.title")}</h3>
-            <p>{t("afterHero.enable.cards.smart.desc")}</p>
+          <div className="cinematic-content">
+            <div className="cinematic-header">
+              <h2>{t("afterHero.enable.title")}</h2>
+              <p>{t("afterHero.enable.subtitle")}</p>
+            </div>
+
+            <div className="cinematic-reel">
+              <div
+                key={activeScene.id}
+                className="cinematic-scene cinematic-scene-animate"
+              >
+                <div className="scene-image cinematic-film-left">
+                  <img src={activeScene.image} alt={t(activeScene.titleKey)} />
+                </div>
+
+                <div className="scene-text cinematic-film-right">
+                  <h3>{t(activeScene.titleKey)}</h3>
+                  <p>{t(activeScene.descKey)}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="cinematic-dots">
+              {scenes.map((scene, idx) => (
+                <button
+                  key={scene.id}
+                  className={
+                    idx === activeIndex
+                      ? "cinematic-dot cinematic-dot-active"
+                      : "cinematic-dot"
+                  }
+                  onClick={() => setActiveIndex(idx)}
+                  aria-label={scene.id}
+                />
+              ))}
+            </div>
           </div>
         </div>
-
-        <div className="enable-card">
-          <img 
-            src="/images/agroSchemes.jpg"
-            alt="Sustainable Farming"
-            className="card-hero-image"
-            style={{
-              width: "100%",
-              height: "260px",
-              objectFit: "contain",
-              backgroundColor: "#f2f7f3",
-              padding: "12px",
-              borderRadius: "12px"
-            }}
-          />
-
-          <div className="card-content">
-            <h3>{t("afterHero.enable.cards.schemes.title")}</h3>
-            <p>{t("afterHero.enable.cards.schemes.desc")}</p>
-          </div>
-        </div>
-
-        <div className="enable-card">
-          <img 
-            src="/images/agroAdoption.png"
-            alt="Sustainable Farming"
-            className="card-hero-image"
-            style={{
-              width: "100%",
-              height: "260px",
-              objectFit: "contain",
-              backgroundColor: "#f2f7f3",
-              padding: "12px",
-              borderRadius: "12px"
-            }}
-          />
-
-          <div className="card-content">
-            <h3>{t("afterHero.enable.cards.tech.title")}</h3>
-            <p>{t("afterHero.enable.cards.tech.desc")}</p>
-          </div>
-        </div>
-
-        <div className="enable-card">
-          <img 
-            src="/images/sustainable.png  "
-            alt="Sustainable Farming"
-            className="card-hero-image"
-            style={{
-              width: "100%",
-              height: "260px",
-              objectFit: "contain",
-              backgroundColor: "#f2f7f3",
-              padding: "12px",
-              borderRadius: "12px"
-            }}
-          />
-
-        <div className="card-content">
-          <h3>{t("afterHero.enable.cards.sustain.title")}</h3>
-          <p>{t("afterHero.enable.cards.sustain.desc")}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</Reveal>
-
-
+      </Reveal>
     </section>
   );
 }
