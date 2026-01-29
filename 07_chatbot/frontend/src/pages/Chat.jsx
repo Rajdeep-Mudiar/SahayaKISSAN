@@ -7,11 +7,10 @@ import ChatInput from "../components/ChatInput";
 import "./Chat.css";
 
 function Chat() {
-  const { sessionId, messages, setMessages, reloadSessions } =
-    useContext(ChatContext);
+  const { sessionId, messages, setMessages, reloadSessions } = useContext(ChatContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const [voiceStatus, setVoiceStatus] = useState("idle"); // idle | listening | processing
+  const [voiceStatus, setVoiceStatus] = useState("idle");
   const [isSpeaking, setIsSpeaking] = useState(false);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
@@ -31,9 +30,7 @@ function Chat() {
     const voice = voices.find((v) =>
       v.lang.toLowerCase().startsWith(utterance.lang.slice(0, 2).toLowerCase()),
     );
-    if (voice) {
-      utterance.voice = voice;
-    }
+    if (voice) utterance.voice = voice;
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);
@@ -50,12 +47,11 @@ function Chat() {
     setIsLoading(false);
 
     if (res.type === "NAVIGATION") {
-      // Show navigation option in chat instead of auto-redirecting
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: `I can help you with ${res.label}. Click the button below to continue.`,
+          content: ` I can help you with ${res.label}. Click below to continue.`,
           navigationUrl: res.url,
           navigationLabel: res.label,
         },
@@ -64,15 +60,8 @@ function Chat() {
       const reply = res.type === "ERROR" ? `⚠️ ${res.reply}` : res.reply;
       const replyLanguage = res.language || languageHint || "en";
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
-      console.log(reply);
-
-      // Speak back the answer in the detected language
       speak(reply, replyLanguage);
-
-      // Reload sessions after first message to show auto-generated title
-      if (isFirstMessage) {
-        reloadSessions();
-      }
+      if (isFirstMessage) reloadSessions();
     }
   };
 
@@ -91,9 +80,7 @@ function Chat() {
       chunksRef.current = [];
 
       recorder.ondataavailable = (e) => {
-        if (e.data.size > 0) {
-          chunksRef.current.push(e.data);
-        }
+        if (e.data.size > 0) chunksRef.current.push(e.data);
       };
 
       recorder.onstop = async () => {
@@ -102,9 +89,7 @@ function Chat() {
         const audioBlob = new Blob(chunksRef.current, { type: "audio/webm" });
         try {
           const { text, language } = await transcribeAudio(audioBlob);
-          if (text) {
-            await handleSend(text, language || "en");
-          }
+          if (text) await handleSend(text, language || "en");
         } catch (err) {
           console.error("Transcription failed", err);
         }
@@ -133,29 +118,32 @@ function Chat() {
 
   return (
     <div className="chat-container">
+      <div className="chat-page-header">
+        <span className="header-icon"></span>
+        <h1 className="header-title">SahayaKISSAN Assistant</h1>
+      </div>
       <div className="messages">
         {messages.map((m, i) => (
-          <Message
-            key={i}
-            role={m.role}
-            content={m.content}
-            navigationUrl={m.navigationUrl}
-            navigationLabel={m.navigationLabel}
-          />
+          <div key={i} className={`message-row ${m.role}`}>
+            <Message
+              role={m.role}
+              content={m.content}
+              navigationUrl={m.navigationUrl}
+              navigationLabel={m.navigationLabel}
+            />
+          </div>
         ))}
         {isSpeaking && (
           <div className="stop-speech-container">
             <button className="stop-speech-btn" onClick={stopSpeech}>
-              ⏹ Stop Speaking
+               Stop Speaking
             </button>
           </div>
         )}
         {(voiceStatus === "listening" || voiceStatus === "processing") && (
           <div className="message-row assistant">
             <span className="message-bubble thinking">
-              {voiceStatus === "listening"
-                ? "Listening..."
-                : "Processing voice..."}
+              {voiceStatus === "listening" ? "🎤 Listening..." : " Processing voice..."}
             </span>
           </div>
         )}
@@ -169,13 +157,16 @@ function Chat() {
           </div>
         )}
       </div>
-      <ChatInput
-        onSend={handleSend}
-        onVoiceClick={handleVoiceClick}
-        isRecording={isRecording}
-        disabled={isLoading}
-      />
+      <div className="chat-input-container">
+        <ChatInput
+          onSend={handleSend}
+          onVoiceClick={handleVoiceClick}
+          isRecording={isRecording}
+          disabled={isLoading}
+        />
+      </div>
     </div>
   );
 }
+
 export default Chat;

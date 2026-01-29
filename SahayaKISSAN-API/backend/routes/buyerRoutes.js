@@ -72,4 +72,35 @@ router.post('/reviews/:productId', async (req, res) => {
     res.status(500).json({ error: 'Failed to save review' });
   }
 });
+
+//Home page product showing logic
+router.get("/low-price-random", async (req, res) => {
+  try {
+    // 1️⃣ Get 20 cheapest active listings
+    const cheapListings = await Listing.find({
+      status: "active"
+    })
+      .sort({ price: 1 })
+      .limit(20)
+      .select("cropName price images unit category");
+
+    // 2️⃣ Shuffle
+    const shuffled = cheapListings.sort(() => 0.5 - Math.random());
+
+    // 3️⃣ Pick 4
+    const selected = shuffled.slice(0, 4);
+
+    res.status(200).json({
+      success: true,
+      count: selected.length,
+      data: selected
+    });
+  } catch (error) {
+    console.error("Low price fetch error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch products"
+    });
+  }
+});
 export default router;

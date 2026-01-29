@@ -5,9 +5,11 @@ import { AuthContext } from "../context/AuthContext";
 import api from "../api/axios";
 import "./Navbar.css";
 import HomeExtraSection from "./AfterHeroSections";
+
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const [openBusiness, setOpenBusiness] = useState(false);
+  const [openAiModels, setOpenAiModels] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, setUser } = useContext(AuthContext);
@@ -15,6 +17,10 @@ export default function Navbar() {
 
   const handleBusinessToggle = () => setOpenBusiness((prev) => !prev);
   const closeBusinessMenu = () => setOpenBusiness(false);
+
+  const handleAiModelsToggle = () => setOpenAiModels((prev) => !prev);
+  const closeAiModelsMenu = () => setOpenAiModels(false);
+
   const toggleMobileMenu = () => setMobileOpen((prev) => !prev);
   const closeMobileMenu = () => setMobileOpen(false);
 
@@ -94,9 +100,44 @@ export default function Navbar() {
             )}
           </div>
 
+          <div
+            className="navbar__dropdown"
+            onMouseEnter={() => setOpenAiModels(true)}
+            onMouseLeave={closeAiModelsMenu}
+          >
+            <button className="navbar__link" onClick={handleAiModelsToggle}>
+              AI Models
+            </button>
+
+            {openAiModels && (
+              <div className="navbar__megaMenu">
+                <Link
+                  to="/ai/plant-disease"
+                  className="mega-card"
+                  onClick={closeAiModelsMenu}
+                >
+                  <img src="/images/plant-disease.png" alt="Plant disease" />
+                  <h4>Plant disease detection</h4>
+                  <p>Upload leaf images to detect common crop diseases early.</p>
+                </Link>
+
+                <Link
+                  to="/ai/crop-weather"
+                  className="mega-card"
+                  onClick={closeAiModelsMenu}
+                >
+                  <img src="/images/crop-weather.png" alt="AI tools" />
+                  <h4>Crop recommendation & weather</h4>
+                  <p>AI suggestions for crops plus local weather-based alerts.</p>
+                </Link>
+              </div>
+            )}
+          </div>
+
           <Link to="/schemes" className="navbar__link">
             {t("schemes")}
           </Link>
+
           <a
             href="http://localhost:5175"
             target="_blank"
@@ -150,11 +191,14 @@ export default function Navbar() {
       </div>
 
       <div
-        className={`navbar__mobile-menu ${mobileOpen ? "navbar__mobile-menu--open" : ""}`}
+        className={`navbar__mobile-menu ${
+          mobileOpen ? "navbar__mobile-menu--open" : ""
+        }`}
       >
         <div className="navbar__mobile-container">
           <div className="navbar__mobile-business">
             <span className="navbar__mobile-title">{t("business")}</span>
+
             <Link
               to="/seeds"
               className="navbar__mobile-link"
@@ -163,6 +207,7 @@ export default function Navbar() {
               <span className="mobile-link-title">{t("seeds")}</span>
               <span className="mobile-link-cta">Buy certified seeds</span>
             </Link>
+
             <Link
               to="/tea"
               className="navbar__mobile-link"
@@ -171,6 +216,7 @@ export default function Navbar() {
               <span className="mobile-link-title">{t("tea")}</span>
               <span className="mobile-link-cta">Tea saplings & plantation</span>
             </Link>
+
             <Link
               to="/sensors-iot"
               className="navbar__mobile-link"
@@ -181,6 +227,34 @@ export default function Navbar() {
             </Link>
           </div>
 
+          <div className="navbar__mobile-business">
+            <span className="navbar__mobile-title">AI Models</span>
+
+            <Link
+              to="/ai/plant-disease"
+              className="navbar__mobile-link"
+              onClick={closeMobileMenu}
+            >
+              <span className="mobile-link-title">Plant disease detection</span>
+              <span className="mobile-link-cta">
+                Detect crop issues from leaf images
+              </span>
+            </Link>
+
+            <Link
+              to="/ai/crop-weather"
+              className="navbar__mobile-link"
+              onClick={closeMobileMenu}
+            >
+              <span className="mobile-link-title">
+                Crop recommendation & weather
+              </span>
+              <span className="mobile-link-cta">
+                AI crop advice with weather
+              </span>
+            </Link>
+          </div>
+
           <Link
             to="/schemes"
             className="navbar__mobile-link"
@@ -188,6 +262,7 @@ export default function Navbar() {
           >
             {t("schemes")}
           </Link>
+
           <a
             href="http://localhost:5175"
             target="_blank"

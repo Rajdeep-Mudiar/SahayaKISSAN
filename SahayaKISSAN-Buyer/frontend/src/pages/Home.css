@@ -192,3 +192,91 @@ html, body {
     overflow: hidden;
   }
 }
+.hero-clickable {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.hero-clickable img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.agri-hero-slide {
+  pointer-events: none;
+}
+
+.agri-hero-slide.clickable-slide {
+  pointer-events: auto;
+}
+
+.hero-clickable {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.agri-hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+
+.agri-hero-slide.active {
+  opacity: 1;
+}
+
+.agri-hero-slide.clickable-slide {
+  pointer-events: auto;
+}
+
+.hero-clickable {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.hero-clickable img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.agri-hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;           
+}
+
+.agri-hero-slide.active {
+  opacity: 1;
+}
+
+.agri-hero-slide.clickable-slide {
+  pointer-events: auto;
+}
+
+.hero-clickable {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.hero-clickable img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
