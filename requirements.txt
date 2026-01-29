@@ -1,0 +1,15 @@
+python-jose[cryptography]
+pymongo
+langchain-community
+uvicorn
+fastapi
+tensorflow
+joblib
+dotenv
+scikit-learn
+flask
+flask-cors
+opencv-python
+flask-cors
+openai-whisper
+python-multipart

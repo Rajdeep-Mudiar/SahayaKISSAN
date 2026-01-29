@@ -112,23 +112,27 @@ export default function Navbar() {
             {openAiModels && (
               <div className="navbar__megaMenu">
                 <Link
-                  to="/ai/plant-disease"
+                  to="http://localhost:3000/"
                   className="mega-card"
                   onClick={closeAiModelsMenu}
                 >
                   <img src="/images/plant-disease.png" alt="Plant disease" />
                   <h4>Plant disease detection</h4>
-                  <p>Upload leaf images to detect common crop diseases early.</p>
+                  <p>
+                    Upload leaf images to detect common crop diseases early.
+                  </p>
                 </Link>
 
                 <Link
-                  to="/ai/crop-weather"
+                  to="http://localhost:5176/"
                   className="mega-card"
                   onClick={closeAiModelsMenu}
                 >
                   <img src="/images/crop-weather.png" alt="AI tools" />
                   <h4>Crop recommendation & weather</h4>
-                  <p>AI suggestions for crops plus local weather-based alerts.</p>
+                  <p>
+                    AI suggestions for crops plus local weather-based alerts.
+                  </p>
                 </Link>
               </div>
             )}
