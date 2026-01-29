@@ -5,6 +5,7 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import passport from "passport";
+import charityRoutes from "./routes/charityRoutes.js"
 
 const app = express();
 const server = http.createServer(app);
@@ -134,6 +135,7 @@ app.use("/api/listings", listingRoutes);
 app.use("/api/buy", buyerRoutes);
 app.use("/auth", authRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/charity",charityRoutes);
 
 /* ---------------- START SERVER ---------------- */
 server.listen(port, () => {
