@@ -35,7 +35,7 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}>
       <div className="navbar__container">
         {/* LOGO */}
-        <Link to="/" className="navbar__logo">
+        <Link to="http://localhost:5173/" className="navbar__logo">
           <img src="/Logo.svg" alt="SahayaKISSAN" />
         </Link>
 
