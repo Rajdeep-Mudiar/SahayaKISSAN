@@ -30,7 +30,7 @@ share/python-wheels/
 MANIFEST
 
 # Virtual Environments
-venv/
+chatbot/
 env/
 ENV/
 env.bak/
