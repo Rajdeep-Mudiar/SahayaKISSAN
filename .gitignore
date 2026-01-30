@@ -1,6 +1,17 @@
 # Node
 **/node_modules/
 
+# Python/Conda environments
+sahayakisan/
+**/chatbot/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.Python
+**/venv/
+**/env/
+
 # Environment variables
 **/.env
 
