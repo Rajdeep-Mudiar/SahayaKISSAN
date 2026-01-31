@@ -1,0 +1,58 @@
+/* Navbar styles */
+
+.nk-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(180%) blur(8px);
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nk-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nk-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nk-logo {
+  font-size: 24px;
+}
+
+.nk-title {
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  color: #111827;
+}
+
+.nk-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nk-link {
+  padding: 8px 14px;
+  border-radius: 9999px;
+  border: 2px solid #d1d5db;
+  background: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nk-link:hover {
+  background: white;
+  transform: translateY(-1px);
+}

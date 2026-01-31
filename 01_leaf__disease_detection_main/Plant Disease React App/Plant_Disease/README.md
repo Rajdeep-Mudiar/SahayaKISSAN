@@ -1,0 +1,346 @@
+# 🌱 Potato Leaf Disease Detection
+
+A full-stack machine learning application that detects potato leaf diseases using deep learning, featuring a Flask REST API backend and a modern React frontend.
+
+## 🎯 Overview
+
+This project provides an intelligent system to detect and classify potato leaf diseases in real-time. Users can upload leaf images, and the application will:
+
+- Identify the disease type (Early Blight, Late Blight, or Healthy)
+- Provide confidence scores
+- Deliver disease-specific crop management recommendations
+
+## ✨ Features
+
+- **Real-time Disease Detection**: Instantly identify potato leaf diseases from images
+- **High Accuracy Model**: Pre-trained deep learning model for disease classification
+- **Dual Input Methods**: Support for both multipart form-data and base64 encoded images
+- **REST API Backend**: Flask-based API with health checks and model info endpoints
+- **Modern Frontend**: React application with intuitive UI and real-time feedback
+- **Disease Guidance**: Actionable recommendations for each disease type
+- **CORS Enabled**: Full cross-origin support for frontend-backend communication
+- **Responsive Design**: Works on desktop and mobile devices
+
+## 🏗️ Project Structure
+
+```
+01_leaf__disease_detection_main/
+├── Plant Disease React App/
+│   └── Plant_Disease/
+│       ├── Backend/                              # Flask API Server
+│       │   ├── app.py                           # Main Flask application
+│       │   ├── requirements.txt                  # Python dependencies
+│       │   └── README.md                         # Backend documentation
+│       ├── Frontend/                             # React Web Application
+│       │   ├── src/
+│       │   │   ├── components/
+│       │   │   │   ├── PredictorCard.jsx        # Main prediction component
+│       │   │   │   ├── PredictorCard.css        # Component styling
+│       │   │   │   ├── Header.jsx               # App header
+│       │   │   │   ├── UploadSection.jsx        # Image upload interface
+│       │   │   │   ├── PredictionResults.jsx    # Results display
+│       │   │   │   ├── LoadingState.jsx         # Loading indicator
+│       │   │   │   ├── BackendStatus.jsx        # Server status checker
+│       │   │   │   └── ErrorAlert.jsx           # Error display
+│       │   │   ├── App.jsx                      # Main App component
+│       │   │   ├── App.css                      # App styling
+│       │   │   └── main.jsx                     # React entry point
+│       │   ├── index.html
+│       │   ├── package.json
+│       │   ├── vite.config.js
+│       │   └── README.md                         # Frontend documentation
+│       ├── models/                              # Pre-trained Models
+│       │   ├── potato_disease_detection_model.h5
+│       │   └── potato_disease_detection_model.keras
+│       ├── potato_disease_detection_model.json   # Model architecture
+│       ├── potato_disease_detection_model_weights.weights.h5  # Weights
+│       ├── Plant_Disease_Detection.ipynb        # Training notebook
+│       ├── main_app.py                          # Streamlit alternative
+│       ├── README.md                            # Project documentation
+│       └── SETUP_GUIDE.md                       # Detailed setup guide
+└── README.md                                     # This file
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.8+
+- Node.js 14+
+- Conda or venv for Python environment management
+- Git
+
+### Backend Setup
+
+1. **Navigate to the backend directory:**
+
+```bash
+cd "Plant Disease React App\Plant_Disease\Backend"
+```
+
+2. **Create a Python environment:**
+
+```bash
+conda create -n potato_disease python=3.10
+conda activate potato_disease
+```
+
+3. **Install dependencies:**
+
+```bash
+pip install -r requirements.txt
+```
+
+4. **Run the Flask server:**
+
+```bash
+python app.py
+```
+
+Expected output:
+
+```
+==================================================
+Plant Disease Detection API Server
+==================================================
+✓ Model loaded from ./potato_disease_detection_model.keras
+
+✓ Starting Flask server...
+Available endpoints:
+  - GET  /health
+  - GET  /info
+  - GET  /classes
+  - POST /predict (multipart/form-data)
+  - POST /predict_base64 (base64 image in JSON)
+
+Server running on http://localhost:5000
+==================================================
+```
+
+### Frontend Setup
+
+1. **Open a new terminal and navigate to the frontend directory:**
+
+```bash
+cd "Plant Disease React App\Plant_Disease\Frontend"
+```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+3. **Create `.env` file:**
+
+```bash
+VITE_API_URL=http://localhost:5000
+```
+
+4. **Start the development server:**
+
+```bash
+npm run dev
+```
+
+The application will open at `http://localhost:5173`
+
+## 📚 API Endpoints
+
+### Health Check
+
+```http
+GET /health
+```
+
+Returns server and model status.
+
+**Response:**
+
+```json
+{
+  "status": "healthy",
+  "model_loaded": true,
+  "tensorflow_version": "2.20.0",
+  "keras_version": "3.12.0"
+}
+```
+
+### Model Information
+
+```http
+GET /info
+```
+
+Returns detailed model information.
+
+### Get Class Names
+
+```http
+GET /classes
+```
+
+Returns available disease classes.
+
+**Response:**
+
+```json
+{
+  "classes": ["Early Blight", "Healthy", "Late Blight"]
+}
+```
+
+### Predict from Image (Form Data)
+
+```http
+POST /predict
+Content-Type: multipart/form-data
+
+image: <image_file>
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "prediction": {
+    "disease": "Early Blight",
+    "confidence": 94.57,
+    "all_predictions": {
+      "Early Blight": 0.9457,
+      "Healthy": 0.0432,
+      "Late Blight": 0.0111
+    }
+  },
+  "guidance": {
+    "status": "🟠 Early Blight Detected",
+    "tips": [
+      "Remove infected leaves immediately.",
+      "Apply fungicides (Chlorothalonil).",
+      "Improve air circulation."
+    ]
+  },
+  "image_info": {
+    "height": 512,
+    "width": 512,
+    "channels": 3
+  }
+}
+```
+
+### Predict from Base64 Image
+
+```http
+POST /predict_base64
+Content-Type: application/json
+
+{
+  "image": "<base64_encoded_image>"
+}
+```
+
+## 🧠 Model Details
+
+- **Architecture**: Deep Convolutional Neural Network (CNN)
+- **Input Size**: 256×256 RGB images
+- **Classes**:
+  - Early Blight
+  - Healthy
+  - Late Blight
+- **Framework**: TensorFlow/Keras
+- **Preprocessing**: Resizing and rescaling layers built-in
+
+## 📊 Supported Image Formats
+
+- PNG
+- JPG
+- JPEG
+- GIF
+
+## 🛠️ Technology Stack
+
+### Backend
+
+- **Flask** - Web framework
+- **TensorFlow** - Deep learning framework
+- **Keras** - Neural network API
+- **OpenCV** - Image processing
+- **NumPy** - Numerical computing
+
+### Frontend
+
+- **React** - UI framework
+- **Vite** - Build tool
+- **CSS3** - Styling
+- **Axios** - HTTP client
+
+## 📖 Documentation
+
+For detailed setup instructions, see:
+
+- [Setup Guide](Plant%20Disease%20React%20App/Plant_Disease/SETUP_GUIDE.md)
+- [Backend README](Plant%20Disease%20React%20App/Plant_Disease/Backend/README.md)
+- [Frontend README](Plant%20Disease%20React%20App/Plant_Disease/Frontend/README.md)
+
+## 🎓 Model Training
+
+The model was trained using the PlantVillage dataset. For training details and the notebook, see:
+
+- [Training Notebook](Plant%20Disease%20React%20App/Plant_Disease/Plant_Disease_Detection.ipynb)
+
+## 💡 Disease Management Tips
+
+### Early Blight
+
+- Remove infected leaves immediately
+- Apply fungicides (Chlorothalonil)
+- Improve air circulation
+
+### Late Blight (URGENT)
+
+- Destroy infected plants
+- Spray Metalaxyl or Mancozeb immediately
+- Isolate infected area
+
+### Healthy Crop
+
+- Maintain proper irrigation
+- Apply balanced fertilizers
+- Monitor for signs of disease
+
+## 🔧 Troubleshooting
+
+### Model Won't Load
+
+- Ensure model files exist in the Plant_Disease directory:
+  - `potato_disease_detection_model.keras`
+  - `potato_disease_detection_model.json`
+  - `potato_disease_detection_model_weights.weights.h5`
+
+### CORS Errors
+
+- Verify Flask CORS is enabled
+- Check frontend API URL in `.env` file
+
+### Port Already in Use
+
+- Backend default: 5000
+- Frontend default: 5173
+- Change ports in Flask `app.run()` and Vite config if needed
+
+## 📝 License
+
+This project is provided as-is for educational and research purposes.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
+
+## 📧 Contact
+
+For questions or support, please refer to the documentation files included in the project.
+
+---
+
+**Last Updated**: January 2026

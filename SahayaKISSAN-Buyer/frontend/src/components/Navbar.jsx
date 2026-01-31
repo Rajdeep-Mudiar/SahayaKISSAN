@@ -111,25 +111,33 @@ export default function Navbar() {
 
             {openAiModels && (
               <div className="navbar__megaMenu">
-                <Link
-                  to="/ai/plant-disease"
+                <a
+                  href="http://localhost:3000"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mega-card"
                   onClick={closeAiModelsMenu}
                 >
                   <img src="/images/plant-disease.png" alt="Plant disease" />
                   <h4>Plant disease detection</h4>
-                  <p>Upload leaf images to detect common crop diseases early.</p>
-                </Link>
+                  <p>
+                    Upload leaf images to detect common crop diseases early.
+                  </p>
+                </a>
 
-                <Link
-                  to="/ai/crop-weather"
+                <a
+                  href="http://localhost:5176"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mega-card"
                   onClick={closeAiModelsMenu}
                 >
                   <img src="/images/crop-weather.png" alt="AI tools" />
                   <h4>Crop recommendation & weather</h4>
-                  <p>AI suggestions for crops plus local weather-based alerts.</p>
-                </Link>
+                  <p>
+                    AI suggestions for crops plus local weather-based alerts.
+                  </p>
+                </a>
               </div>
             )}
           </div>
@@ -230,8 +238,10 @@ export default function Navbar() {
           <div className="navbar__mobile-business">
             <span className="navbar__mobile-title">AI Models</span>
 
-            <Link
-              to="/ai/plant-disease"
+            <a
+              href="http://localhost:3000"
+              target="_blank"
+              rel="noopener noreferrer"
               className="navbar__mobile-link"
               onClick={closeMobileMenu}
             >
@@ -239,10 +249,12 @@ export default function Navbar() {
               <span className="mobile-link-cta">
                 Detect crop issues from leaf images
               </span>
-            </Link>
+            </a>
 
-            <Link
-              to="/ai/crop-weather"
+            <a
+              href="http://localhost:5176"
+              target="_blank"
+              rel="noopener noreferrer"
               className="navbar__mobile-link"
               onClick={closeMobileMenu}
             >
@@ -252,7 +264,7 @@ export default function Navbar() {
               <span className="mobile-link-cta">
                 AI crop advice with weather
               </span>
-            </Link>
+            </a>
           </div>
 
           <Link
