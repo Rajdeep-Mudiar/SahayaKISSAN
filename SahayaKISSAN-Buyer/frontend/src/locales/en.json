@@ -106,5 +106,106 @@
     "contact": "Contact Info",
     "address": "Jorhat, Assam, India",
     "copyright": "SahayaKISSAN. All rights reserved."
+  },
+  "hero": {
+    "title": "Smart IoT Solutions",
+    "assamText": "for Assam Tea Farmers",
+    "subHeading": "Affordable, field-ready devices designed specifically for Assam's tea plantations"
+  },
+  "whyIoT": {
+    "title": "Why IoT for Assam Tea Farming?",
+    "lead": "Assam's tea industry faces unique challenges: unpredictable monsoons, pest outbreaks, soil degradation, and labor shortages. Traditional farming relies on guesswork, leading to <strong>20-30% yield losses annually</strong>.",
+    "stats": {
+      "lossPerAcre": "₹15,000",
+      "lossPerAcreLabel": "Avg loss per acre/year",
+      "noTech": "72%",
+      "noTechLabel": "Tea farms without tech",
+      "yieldIncrease": "40%",
+      "yieldIncreaseLabel": "Yield increase possible"
+    },
+    "benefitsTitle": "IoT Solves These Problems:",
+    "benefits": {
+      "irrigation": {
+        "title": "Precise Irrigation",
+        "desc": "Save 35% water by watering only when soil needs it"
+      },
+      "pest": {
+        "title": "Early Pest Alerts",
+        "desc": "Detect outbreaks 7 days earlier, save 25% crop loss"
+      },
+      "weather": {
+        "title": "Weather Integration",
+        "desc": "Microclimate data specific to your plantation"
+      },
+      "dashboard": {
+        "title": "Mobile Dashboard",
+        "desc": "Monitor entire farm from your phone"
+      }
+    }
+  },
+  "devices": {
+    "title": "Our Field-Ready Devices",
+    "availableNow": "Available Now",
+    "q2_2026": "Coming Q2 2026",
+    "q3_2026": "Coming Q3 2026",
+    "q4_2026": "Coming Q4 2026",
+    "soil": {
+      "title": "Smart Soil Monitoring Kit",
+      "desc": "Complete soil health monitoring - moisture, pH, nutrients, temperature.",
+      "price": "₹4,999",
+      "alt": "Smart Soil Monitoring Kit"
+    },
+    "weather": {
+      "title": "Weather & Microclimate Station",
+      "desc": "Local rainfall, humidity, wind speed, temperature forecasting.",
+      "price": "₹6,499",
+      "alt": "Weather Station"
+    },
+    "pest": {
+      "title": "Pest & Disease Alert",
+      "desc": "Camera + AI detects pests and diseases instantly with alerts.",
+      "price": "₹8,999",
+      "alt": "Pest Detection"
+    },
+    "scanner": {
+      "title": "AI Tea Leaf Quality Scanner",
+      "desc": "Instant grading and quality assessment of harvested tea leaves.",
+      "price": "₹12,999",
+      "alt": "AI Scanner"
+    }
+  },
+  "cta": {
+    "text": "Ready to transform your tea farm with smart IoT technology?",
+    "subtext": "Request deployment for your plantation today - installation included"
+  },
+  "form": {
+    "title": "Request Device Deployment",
+    "goToDashboard": "Go to Dashboard",
+    "fullName": "Full Name *",
+    "phone": "Phone Number *",
+    "email": "Email Address *",
+    "location": "Farm Location / District",
+    "devicesLabel": "Select Devices Needed",
+    "devices": {
+      "soil": "Smart Soil Monitoring Kit (₹4,999)",
+      "weather": "Weather Station (Coming Q2 2026)",
+      "pest": "Pest & Disease Alert (Coming Q3 2026)",
+      "scanner": "AI Tea Leaf Scanner (Coming Q4 2026)"
+    },
+    "message": "Additional requirements or farm details...",
+    "submitting": "Submitting...",
+    "submitBtn": "Deploy IoT to My Farm",
+    "errorGeneric": "Failed to submit request. Please try again."
+  },
+  "popup": {
+    "success": {
+      "title": "Request Submitted Successfully!",
+      "message": "Our team will contact you within 24 hours to discuss deployment."
+    },
+    "error": {
+      "title": "Submission Failed"
+    },
+    "gotIt": "Got it!",
+    "tryAgain": "Try Again"
   }
 }

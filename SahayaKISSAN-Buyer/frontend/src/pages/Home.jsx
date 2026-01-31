@@ -4,8 +4,9 @@ import "./Home.css";
 import AfterHeroSections from "../components/AfterHeroSections";
 import HomeExtraSections from "../components/HomeExtraSections";
 
-export default function Home() {
 
+export default function Home() {
+ 
   useEffect(() => {
     let currentSlide = 0;
     const slides = document.querySelectorAll(".agri-hero-slide");
