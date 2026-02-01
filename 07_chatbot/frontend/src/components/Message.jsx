@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./Message.css";
-import chatbotLogo from "../assets/chatbot.png";
+import chatbotLogo from "../assets/chatbot1.png";
 
 function Message({ role, content, navigationUrl, navigationLabel }) {
   const isUser = role === "user";
