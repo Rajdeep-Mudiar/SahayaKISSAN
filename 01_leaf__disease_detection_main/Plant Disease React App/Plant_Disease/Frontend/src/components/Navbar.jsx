@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import LogoSvg from "../assets/Logo.svg";
 import "./Navbar.css";
 
@@ -49,12 +48,14 @@ export default function Navbar() {
             SahayaBot
           </a>
 
-          <Link
-            to="https://sahaya-kissan-research.vercel.app/"
+          <a
+            href="https://sahaya-kissan-research.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="navbar__link"
           >
             Research
-          </Link>
+          </a>
         </div>
 
         <button
@@ -100,13 +101,15 @@ export default function Navbar() {
             SahayaBot
           </a>
 
-          <Link
-            to="https://sahaya-kissan-research.vercel.app/"
+          <a
+            href="https://sahaya-kissan-research.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="navbar__mobile-link"
             onClick={closeMobileMenu}
           >
             Research
-          </Link>
+          </a>
         </div>
       </div>
     </nav>
