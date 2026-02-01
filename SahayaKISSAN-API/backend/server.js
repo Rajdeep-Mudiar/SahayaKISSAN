@@ -16,6 +16,7 @@ connectDB();
 import "./config/passport.js";
 
 import voiceRoutes from "./routes/voiceRoutes.js";
+import fireControlRoutes from "./routes/fireControlRoutes.js";
 
 import sensorRoutes from "./routes/sensorRoutes.js";
 import charityRoutes from "./routes/charityRoutes.js"
@@ -145,6 +146,7 @@ app.use("/charity",charityRoutes);
 app.use("/iot", iotRoutes);
 app.use("/api", sensorRoutes);
 app.use("/api-voice", voiceRoutes);
+app.use("/api-fire", fireControlRoutes);
 
 /* ---------------- START SERVER ---------------- */
 server.listen(port, () => {

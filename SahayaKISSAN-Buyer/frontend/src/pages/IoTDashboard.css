@@ -573,3 +573,40 @@ body {
   background: #e74c3c;
   color: white;
 }
+/* 🔥 FIRE ALERT FLASH */
+.fire-alert {
+  animation: fireFlash 1s infinite;
+}
+
+@keyframes fireFlash {
+  0% {
+    background-color: #fff;
+  }
+  25% {
+    background-color: #ffe5e5;
+  }
+  50% {
+    background-color: #ff3b3b;
+  }
+  75% {
+    background-color: #ffe5e5;
+  }
+  100% {
+    background-color: #fff;
+  }
+}
+
+/* Make cards glow during fire */
+.fire-alert .status-card,
+.fire-alert .metric-card,
+.fire-alert .analytics-card {
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+}
+.blink {
+  animation: blinkText 1s infinite;
+}
+
+@keyframes blinkText {
+  50% { opacity: 0; }
+}

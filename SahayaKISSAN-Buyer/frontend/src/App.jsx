@@ -20,11 +20,14 @@ import Auth from "./components/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import IoTForm from "./pages/IoTForm";
 import IoTDashBoard from "./pages/IotDashBoard";
+import { AudioProvider } from "./context/AudioContext";
+
 
 function App() {
   return (
     <>
-    <GlobalVoicePlayer />
+    <AudioProvider>
+      <GlobalVoicePlayer />
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route path="/auth" element={<Auth />} />
@@ -56,6 +59,8 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>
+    </AudioProvider>
+    
     </>
     
   );
