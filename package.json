@@ -2,12 +2,21 @@
   "name": "sahayakissan-monorepo",
   "version": "1.0.0",
   "description": "Run all SahayaKISSAN frontends",
+  "ports": {
+    "leaf-disease": 3000,
+    "crop-weather": 5176,
+    "chatbot": 5175,
+    "buyer": 5173,
+    "seller": 5174
+  },
   "scripts": {
-    "dev": "concurrently \"npm run dev:chatbot\" \"npm run dev:buyer\" \"npm run dev:seller\"",
+    "dev": "concurrently \"npm run dev:leaf-disease\" \"npm run dev:crop-weather\" \"npm run dev:chatbot\" \"npm run dev:buyer\" \"npm run dev:seller\"",
+    "dev:leaf-disease": "cd \"01_leaf__disease_detection_main/Plant Disease React App/Plant_Disease/Frontend\" && npm run dev",
+    "dev:crop-weather": "cd 06_crop_recommendation_weather_prediction/frontend && npm run dev",
     "dev:chatbot": "cd 07_chatbot/frontend && npm run dev",
     "dev:buyer": "cd SahayaKISSAN-Buyer/frontend && npm run dev",
     "dev:seller": "cd SahayaKISSAN-Seller/frontend && npm run dev",
-    "install:all": "cd 07_chatbot/frontend && npm install && cd ../../SahayaKISSAN-Buyer/frontend && npm install && cd ../../SahayaKISSAN-Seller/frontend && npm install"
+    "install:all": "cd \"01_leaf__disease_detection_main/Plant Disease React App/Plant_Disease/Frontend\" && npm install && cd ../../../../06_crop_recommendation_weather_prediction/frontend && npm install && cd ../../07_chatbot/frontend && npm install && cd ../../SahayaKISSAN-Buyer/frontend && npm install && cd ../../SahayaKISSAN-Seller/frontend && npm install"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"

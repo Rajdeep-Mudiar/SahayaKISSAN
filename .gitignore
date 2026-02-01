@@ -1,6 +1,9 @@
 # Node
 **/node_modules/
 
+# Python environments
+sahayakisan/
+
 # Environment variables
 **/.env
 
