@@ -7,12 +7,15 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import api from "../api/axios";
 import "./IoTDashboard.css";
+import { useAudio } from "../context/AudioContext";
 
 const DEVICE_ID = "FIRE_NODE_001";
 
 export default function IoTDashboard() {
   const [data, setData] = useState(null);
   const [systemEnabled, setSystemEnabled] = useState(true);
+  const [fireEnabled, setFireEnabled] = useState(true);
+  const { playAlarm, stopAlarm } = useAudio();
 
   const [deviceStatus, setDeviceStatus] = useState({
     online: false,
@@ -42,6 +45,19 @@ const fetchSystemControl = useCallback(async () => {
   }
 }, []);
 
+const fetchFireControl = useCallback(async () => {
+  const res = await api.get(`/api-fire/fire-control/${DEVICE_ID}`);
+  if (res.data?.success) {
+    setFireEnabled(res.data.enabled);
+  }
+}, []);
+
+const toggleFire = async () => {
+  const newState = !fireEnabled;
+  await api.post(`/api-fire/fire-control/${DEVICE_ID}`, { enabled: newState });
+  setFireEnabled(newState);
+};
+
 const toggleSystem = useCallback(async () => {
   const newState = !systemEnabled;
 
@@ -51,6 +67,13 @@ const toggleSystem = useCallback(async () => {
 
   setSystemEnabled(newState);
 }, [systemEnabled]);
+useEffect(() => {
+  if (data?.flame && fireEnabled) {
+    playAlarm();
+  } else {
+    stopAlarm();
+  }
+}, [data?.flame, fireEnabled]);
 
   // Update ref whenever deviceStatus changes
   useEffect(() => {
@@ -162,7 +185,9 @@ const toggleSystem = useCallback(async () => {
   useEffect(() => {
   const init = async () => {
     setLoading(true);
-    await fetchSystemControl();   // ✅ ADD THIS
+    await fetchSystemControl(); 
+    await fetchFireControl();
+  // ✅ ADD THIS
     await checkDeviceStatus();
     await fetchData();
     if (deviceStatusRef.current?.online) {
@@ -271,18 +296,27 @@ const toggleSystem = useCallback(async () => {
 
 
   return (
-    <div className="iot-dashboard">
+    <div className={`iot-dashboard ${data?.flame && fireEnabled ? "fire-alert" : ""}`}>
       <div ref={dashboardRef}>
         <header className="dashboard-header">
           <h1 className="dashboard-title">
             🔥 Agricultural Fire Monitoring System
-            <span className={`status-badge online`}>● LIVE</span>
+            <span className={`status-badge ${data?.flame ? "danger blink" : "online"}`}>
+              {data?.flame === true || data?.flame === "true" ? "🚨 FIRE" : "● LIVE"}
+
+            </span>
           </h1>
           <button
             className={`system-toggle ${systemEnabled ? "on" : "off"}`}
             onClick={toggleSystem}
           >
             {systemEnabled ? "🟢 System ON" : "🔴 System OFF"}
+          </button>
+          <button
+            className={`system-toggle ${fireEnabled ? "on" : "off"}`}
+            onClick={toggleFire}
+          >
+            {fireEnabled ? "🔥 Fire Sensor ON" : "🚫 Fire Sensor OFF"}
           </button>
 
           <div className="header-actions">

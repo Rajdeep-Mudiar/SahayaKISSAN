@@ -39,7 +39,11 @@ uvicorn app.main:app --reload --port 8000
 #or
 python -m uvicorn app.main:app --reload --port 8000
 
+#for crop recommendation run this after installation:
+python -m uvicorn main:app --reload --port 8001
 
+#for leaf disease detection run this after installtion:
+python -m uvicorn app:app --reload --port 8002
 
 ```
 
