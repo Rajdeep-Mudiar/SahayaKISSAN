@@ -26,11 +26,19 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .navbar__logo img {
-  height: 40px;
+  height: 80px;
   width: auto;
+}
+
+.navbar__logo-text {
+  font-weight: 800;
+  font-size: 100px;
+  color: #111827;
+  letter-spacing: -0.3px;
 }
 
 .navbar__menu {
@@ -38,7 +46,7 @@
   align-items: center;
   gap: 32px;
   flex: 1;
-  margin-left: 40px;
+  margin-left: 140px;
 }
 
 .navbar__link {
